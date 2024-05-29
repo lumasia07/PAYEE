@@ -1,8 +1,20 @@
 import React, { Component } from 'react';
+import Login from './Login';
 
 const options = ['Products', 'About', 'FAQ'];
 
 class Homepage extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      showLogin: false,
+    };
+  }
+
+  handleLoginClick = () => {
+    this.setState({ showLogin: true });
+  };
+
   renderOpts() {
     return (
       <ul className="flex justify-center list-none">
@@ -16,6 +28,8 @@ class Homepage extends Component {
   }
 
   render() {
+    const { showLogin } = this.state;
+
     return (
       <div className='relative min-h-screen bg-cover bg-center' style={{ backgroundImage: "url('/SOFTWARE ENGINEER (2).png')" }}>
         <div className='absolute top-0 left-0'>
@@ -39,7 +53,10 @@ class Homepage extends Component {
             </div>
           </div>
         </div>
-        <button className="font-raleway absolute top-0 right-10 md:right-10 lg:right-20 m-5 px-4 py-2 bg-white text-black border border-orange-500 hover:bg-orange-300 transition duration-200 shadow-md rounded-md">
+        <button
+          className="font-raleway absolute top-0 right-10 md:right-10 lg:right-20 m-5 px-4 py-2 bg-white text-black border border-orange-500 hover:bg-orange-300 transition duration-200 shadow-md rounded-md"
+          onClick={this.handleLoginClick}
+        >
           Log in ?
         </button>
         <div className="font-raleway w-full flex justify-center pt-4">
@@ -60,6 +77,19 @@ class Homepage extends Component {
             Get Started
           </button>
         </div>
+        {showLogin && (
+          <div className="absolute inset-0 bg-black bg-opacity-70 flex justify-center items-center">
+            <div className="bg-orange-100 p-8 rounded-md shadow-lg">
+              <Login />
+              <button
+                className="mt-4 px-4 py-2 bg-red-500 text-white rounded-full font-tour"
+                onClick={() => this.setState({ showLogin: false })}
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        )}
       </div>
     );
   }
