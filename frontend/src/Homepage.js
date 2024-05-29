@@ -13,6 +13,7 @@ class Homepage extends Component {
 
   handleLoginClick = () => {
     this.setState({ showLogin: true });
+    console.log("User pressed login!!")
   };
 
   renderOpts() {
