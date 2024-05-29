@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 
-
 const options = ['Products', 'About', 'FAQ'];
 
 class Homepage extends Component {
@@ -22,22 +21,26 @@ class Homepage extends Component {
         <div className='absolute top-0 left-0'>
           <h1 className='font-mons text-4xl px-6 py-5 font-semibold'>Payee</h1>
           <div className='mt-4 px-6'>
-            <img
-              src="/igal-ness-9wY2ofzQ9Us-unsplash.jpg"
-              alt="Description"
-              className='rounded-lr-custom w-full sm:w-2/3 md:w-1/2 lg:w-1/4 h-auto'
-            />
+            <div className='relative w-32 h-32 sm:w-40 sm:h-40 md:w-48 md:h-48 lg:w-56 lg:h-56 overflow-hidden'>
+              <img
+                src="/igal-ness-9wY2ofzQ9Us-unsplash.jpg"
+                alt="Description"
+                className='absolute inset-0 w-full h-full object-cover rounded-lr-custom'
+              />
+            </div>
           </div>
           <div className='mt-4 px-6'>
-            <img
-              src="/rupixen-Q59HmzK38eQ-unsplash.jpg"
-              alt="Second Description"
-              className='rounded-lr-custom-second w-full sm:w-2/3 md:w-1/2 lg:w-1/4 h-auto'
-            />
+            <div className='relative w-32 h-32 sm:w-40 sm:h-40 md:w-48 md:h-48 lg:w-56 lg:h-56 overflow-hidden'>
+              <img
+                src="/rupixen-Q59HmzK38eQ-unsplash.jpg"
+                alt="Second Description"
+                className='absolute inset-0 w-full h-full object-cover rounded-lr-custom-second'
+              />
+            </div>
           </div>
         </div>
         <button className="font-raleway absolute top-0 right-10 md:right-10 lg:right-20 m-5 px-4 py-2 bg-white text-black border border-orange-500 hover:bg-orange-300 transition duration-200 shadow-md rounded-md">
-          Get Started
+          Log in ?
         </button>
         <div className="font-raleway w-full flex justify-center pt-4">
           {this.renderOpts()}
@@ -47,10 +50,15 @@ class Homepage extends Component {
             Money Come, Money Go?
           </h1>
         </div>
-        <div className='w-full flex justify-center items-center mt-20 ml-12'>
-          <h1 className='font-tour font-semibold pt-20 text-4xl text-center md:text-center lg:text-right pl-12'>
-            Your AI-powered financial manager<br />
+        <div className='flex w-full justify-center items-center my-20'>
+          <h1 className='font-tour font-semibold py-10 text-4xl text-center md:text-center lg:text-right lg:ml-20'>
+            Your AI-powered financial manager
           </h1>
+        </div>
+        <div className='absolute bottom-20 w-full flex justify-center'>
+          <button className='font-raleway px-6 py-3 bg-orange-300 text-black rounded-md transition duration-200 hover:bg-gradient-to-r from-orange-300 to-orange-500'>
+            Get Started
+          </button>
         </div>
       </div>
     );

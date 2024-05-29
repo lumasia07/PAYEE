@@ -21,15 +21,15 @@ module.exports = {
       addUtilities({
         '.rounded-lr-custom': {
           'border-top-left-radius': '250px',
-          'border-bottom-left-radius': '500px',
+          'border-bottom-left-radius': '400px',
           'border-top-right-radius': '500px',
           'border-bottom-right-radius': '250px',
         },
         '.rounded-lr-custom-second': {
           'border-top-left-radius': '500px',
-          'border-bottom-left-radius': '250px',
+          'border-bottom-left-radius': '400px',
           'border-top-right-radius': '250px',
-          'border-bottom-right-radius': '500px',
+          'border-bottom-right-radius': '400px',
         },
       });
     },
