@@ -1,17 +1,10 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
 
-const Login = () => {
-  const navigate = useNavigate();
-
-  const handleSignInClick = () => {
-    navigate('/register');
-  };
-
+const RegisterUser = () => {
   return (
     <div>
-      <h1 className='font-mons font-semibold text-3xl'>Payee</h1>
-      <h2 className='font-tour'>Login</h2>
+      <h1 className='font-mons font-semibold text-3xl'>Register</h1>
+      <h2 className='font-tour'>Create an account</h2>
       <form>
         <div className="my-4">
           <label className="font-mons block text-gray-700 text-sm font-bold mb-2" htmlFor="username">
@@ -19,7 +12,7 @@ const Login = () => {
           </label>
           <input
             className="shadow appearance-none border rounded-full w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            id="Username"
+            id="username"
             type="text"
             placeholder="Username"
           />
@@ -36,13 +29,11 @@ const Login = () => {
           />
         </div>
         <div className="flex items-center justify-between">
-          <h2>Do not have an account?</h2>
           <button
             className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full focus:outline-none focus:shadow-outline font-tour ml-4"
             type="button"
-            onClick={handleSignInClick}
           >
-            Sign In  
+            Register  
           </button>
         </div>
       </form>
@@ -50,4 +41,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default RegisterUser;
