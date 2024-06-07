@@ -1,7 +1,10 @@
 """"Creates MySQL Storage engine"""
 from os import getenv
+from dotenv import load_dotenv
 from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
+
+load_dotenv() #Loads environment variables
 
 classes = {"""Include all Data models for Payee"""}
 
