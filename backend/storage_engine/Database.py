@@ -2,9 +2,11 @@
 from os import getenv
 from dotenv import load_dotenv
 from sqlalchemy import create_engine
-from sqlalchemy.orm import scoped_session, sessionmaker
+from sqlalchemy.orm import scoped_session, sessionmaker, declarative_base
 
 load_dotenv() #Loads environment variables
+
+Base = declarative_base() #SQLAlchemy Base
 
 classes = {"""Include all Data models for Payee"""}
 
