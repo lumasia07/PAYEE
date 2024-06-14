@@ -1,14 +1,15 @@
 """"Creates MySQL Storage engine"""
-from os import getenv
+import os
 from dotenv import load_dotenv
 from sqlalchemy import create_engine
-from sqlalchemy.orm import scoped_session, sessionmaker, declarative_base
+from sqlalchemy.orm import scoped_session, sessionmaker
+from data_models.user import User, Base
 
 load_dotenv() #Loads environment variables
 
-Base = declarative_base() #SQLAlchemy Base
-
-classes = {"""Include all Data models for Payee"""}
+classes = {
+    'User': User
+}
 
 class db_storage:
     """"Abstraction for Payee Storage Engine"""
@@ -18,19 +19,17 @@ class db_storage:
 
     def __init__(self):
         """"Creates an Instance of the class object(db_storage)"""
-        MYSQL_USER = getenv('PAYEE_USER')
-        MYSQL_PWD = getenv('PAYEE_PWD')
-        MYSQL_HOST = getenv('PAYEE_HOST')
-        MYSQL_DB = getenv('PAYEE_DB')
+        MYSQL_USER = os.getenv('PAYEE_USER')
+        MYSQL_PWD = os.getenv('PAYEE_PWD')
+        MYSQL_HOST = os.getenv('PAYEE_HOST')
+        MYSQL_DB = os.getenv('PAYEE_DB')
 
+         # Create the SQLAlchemy engine
         self.__engine = create_engine(
-            'mysql+mysqldb://{}:{}@{}/{}'.
-            format(MYSQL_USER,
-                   MYSQL_PWD,
-                   MYSQL_HOST,
-                   MYSQL_DB),
-                   pool_pre_ping=True # Manage connection drops
+            f'mysql+mysqldb://{MYSQL_USER}:{MYSQL_PWD}@{MYSQL_HOST}/{MYSQL_DB}',
+            pool_pre_ping=True  # Enable connection pool management
         )
+
         """Configures Database session"""
         session_factory = sessionmaker(bind=self.__engine, expire_on_commit=False)
         self.__session = scoped_session(session_factory)
