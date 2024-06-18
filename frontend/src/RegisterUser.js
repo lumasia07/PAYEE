@@ -10,21 +10,6 @@ const RegisterUser = () => {
   });
   const [message, setMessage] = useState('');
 
-  // useEffect(() => {
-  //   // Example of side effect: Fetch initial data (could be user profile data, etc.)
-  //   const fetchInitialData = async () => {
-  //     try {
-  //       const response = await fetch('http://127.0.0.1:5000/initial-data');
-  //       const initialData = await response.json();
-  //       setFormData(initialData);
-  //     } catch (error) {
-  //       console.error('Failed to fetch initial data:', error);
-  //     }
-  //   };
-
-  //   fetchInitialData();
-  // }, []); // Empty dependency array ensures this runs once when the component mounts
-
   const handleChange = (event) => {
     setFormData({ ...formData, [event.target.id]: event.target.value });
   };
