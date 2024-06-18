@@ -1,11 +1,14 @@
+"""Handles User Registraton and Login"""
 from flask import Blueprint, jsonify, request
 from storage_engine.Database import db_storage
 from storage_engine.data_models.user import User
+from sqlalchemy.orm.exc import NoResultFound
 
 user_storage = db_storage()
 
 user_bp = Blueprint('user', __name__)
 
+"""Get Payee registered Users"""
 @user_bp.route('/api/register', methods=['GET'])
 def get_user_details():
     users = user_storage.get_all(User)  # Pass the User class as argument
@@ -15,6 +18,7 @@ def get_user_details():
                        'email': user.email} for user in users]
     return jsonify(reg_users_list)
 
+"""Registeres the User"""
 @user_bp.route('/api/register', methods=['POST'])
 def register_user():
     data = request.get_json()
@@ -45,3 +49,37 @@ def register_user():
     user_storage.add_objects(new_user)
     
     return jsonify({'message': 'User registered successfully!'}), 201
+
+"""Validate User login"""
+@user_bp.route('/api/login', methods=['POST'])
+def login_user():
+    data = request.get_json()
+
+    if not data:
+        return jsonify({'message': 'Please enter username and password'}), 400
+
+    if 'email' not in data:
+        return jsonify({'message': 'Please enter your email'}), 400
+
+    if 'password' not in data:
+        return jsonify({'message': 'Please enter your password'}), 400
+
+    email = data['email']
+    password = data['password']
+
+    try:
+        session = user_storage.get_session()
+        user = session.query(User).filter_by(email=email).one()
+        
+        if user.password != password:
+            return jsonify({'message': 'Incorrect password! Try Again!'}), 401
+
+        return jsonify({'message': 'Logged in successfully!', 'user_id': str(user.user_id)}), 200
+
+    except NoResultFound:
+        return jsonify({'message': 'User is not registered!'}), 404
+
+    except Exception as e:
+        return jsonify({'message': str(e)}), 500
+
+

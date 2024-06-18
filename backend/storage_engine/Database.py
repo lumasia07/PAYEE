@@ -3,12 +3,12 @@ import os
 from dotenv import load_dotenv
 from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
-from data_models.user import User, Base
+from .data_models.user import User, Base
 
 load_dotenv() #Loads environment variables
 
 classes = {
-    'User': User
+    'User': User,
 }
 
 class db_storage:
@@ -65,13 +65,28 @@ class db_storage:
             session.rollback()
             raise failed_delete
 
-    def get_all(self, cls):
-        """Get all objects of a class"""
-        if cls not in classes:
-            raise ValueError("{} is not a registered class!".format(cls))
+    # def get_all(self, cls):
+    #     """Get all objects of a class"""
+    #     class_name = cls.__name__
+    #     if class_name not in classes:
+    #         raise ValueError("{} is not a registered class!".format(cls))
         
+    #     session = self.get_session()
+    #     reg_class = classes[class_name]
+    #     return session.query(reg_class).all()
+
+    def get_all(self, cls, filters=None):
+        """Get all objects of a class, optionally filtered by a dictionary of attributes"""
+        if cls.__name__ not in classes:
+            raise ValueError("{} is not a registered class!".format(cls))
+    
         session = self.get_session()
-        reg_class = classes[cls]
+        reg_class = classes[cls.__name__]
+        if filters:
+            query = session.query(reg_class)
+            for attr, value in filters.items():
+                query = query.filter(getattr(reg_class, attr) == value)
+            return query.all()
         return session.query(reg_class).all()
     
     def reload(self):
@@ -86,6 +101,6 @@ class db_storage:
             raise failed_reload
         
 if __name__ == "__main__":
-    storage = db_storage()
-    storage.reload()
-    storage.close_session()
+    storage_main = db_storage()
+    storage_main.reload()
+    storage_main.close_session()
