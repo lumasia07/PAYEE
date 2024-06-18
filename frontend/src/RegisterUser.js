@@ -1,28 +1,29 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 
 const RegisterUser = () => {
   const [formData, setFormData] = useState({
-    first_username: '',
-    second_username: '',
+    first_name: '',
+    last_name: '',
     email: '',
     first_password: '',
     confirm_password: ''
   });
+  const [message, setMessage] = useState('');
 
-  useEffect(() => {
-    // Example of side effect: Fetch initial data (could be user profile data, etc.)
-    const fetchInitialData = async () => {
-      try {
-        const response = await fetch('http://127.0.0.1:5001/initial-data');
-        const initialData = await response.json();
-        setFormData(initialData);
-      } catch (error) {
-        console.error('Failed to fetch initial data:', error);
-      }
-    };
+  // useEffect(() => {
+  //   // Example of side effect: Fetch initial data (could be user profile data, etc.)
+  //   const fetchInitialData = async () => {
+  //     try {
+  //       const response = await fetch('http://127.0.0.1:5000/initial-data');
+  //       const initialData = await response.json();
+  //       setFormData(initialData);
+  //     } catch (error) {
+  //       console.error('Failed to fetch initial data:', error);
+  //     }
+  //   };
 
-    fetchInitialData();
-  }, []); // Empty dependency array ensures this runs once when the component mounts
+  //   fetchInitialData();
+  // }, []); // Empty dependency array ensures this runs once when the component mounts
 
   const handleChange = (event) => {
     setFormData({ ...formData, [event.target.id]: event.target.value });
@@ -32,12 +33,25 @@ const RegisterUser = () => {
     event.preventDefault();
 
     if (formData.first_password !== formData.confirm_password) {
-      alert("Passwords do not match!");
+      setMessage("Passwords do not match!");
+      return;
+    }
+
+    for (const key in formData) {
+      if (formData[key].trim() === '') {
+        setMessage(`${key.replace('_', ' ')} cannot be empty!`);
+        return;
+      }
+    }
+
+    if (!/\S+@\S+\.\S+/.test(formData.email)) {
+      setMessage("Invalid email address!");
       return;
     }
 
     try {
-      const response = await fetch('http://127.0.0.1:5001/register', {
+      console.log("Payload:", formData);
+      const response = await fetch('http://127.0.0.1:5000/api/register', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -48,21 +62,21 @@ const RegisterUser = () => {
       const result = await response.json();
 
       if (response.ok) {
-        alert("Your registration is successful!");
+        setMessage("Your registration is successful!");
 
         // Clear form after successful registration
         setFormData({
-          first_username: '',
-          second_username: '',
+          first_name: '',
+          last_name: '',
           email: '',
           first_password: '',
           confirm_password: ''
         });
       } else {
-        alert('Registration failed: ' + result.message);
+        setMessage('Registration failed: ' + result.message);
       }
     } catch (error) {
-      alert('Error: ' + error.message);
+      setMessage('Error: ' + error.message);
     }
   };
 
@@ -74,28 +88,28 @@ const RegisterUser = () => {
         <h2 className='font-tour'>Create an account</h2>
         <form onSubmit={handleSubmit}>
           <div className="my-4">
-            <label className="font-raleway block text-gray-700 text-sm font-bold mb-2" htmlFor="first_username">
+            <label className="font-raleway block text-gray-700 text-sm font-bold mb-2" htmlFor="first_name">
               First name
             </label>
             <input
               className="shadow appearance-none border rounded-full w-2/3 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-              id="first_username"
+              id="first_name"
               type="text"
               placeholder="First name"
-              value={formData.first_username}
+              value={formData.first_name}
               onChange={handleChange}
             />
           </div>
           <div className="my-4">
-            <label className="font-raleway block text-gray-700 text-sm font-bold mb-2" htmlFor="second_username">
+            <label className="font-raleway block text-gray-700 text-sm font-bold mb-2" htmlFor="last_name">
               Second name
             </label>
             <input
               className="shadow appearance-none border rounded-full w-2/3 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-              id="second_username"
+              id="last_name"
               type="text"
               placeholder="Second name"
-              value={formData.second_username}
+              value={formData.last_name}
               onChange={handleChange}
             />
           </div>
@@ -106,7 +120,7 @@ const RegisterUser = () => {
             <input
               className="shadow appearance-none border rounded-full w-2/3 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               id="email"
-              type="text"
+              type="email"
               placeholder="johndoe@email.com"
               value={formData.email}
               onChange={handleChange}
@@ -147,6 +161,7 @@ const RegisterUser = () => {
             </button>
           </div>
         </form>
+        {message && <p>{message}</p>}
       </div>
       <div className='w-1/3 flex justify-center items-center'>
         <img src={`${process.env.PUBLIC_URL}/registerUserPic.jpg`} alt="Register" className='max-w-full max-h-full object-contain border rounded-lg' />
