@@ -58,6 +58,7 @@ def login_user():
     if not data:
         return jsonify({'message': 'Please enter username and password'}), 400
 
+
     if 'email' not in data:
         return jsonify({'message': 'Please enter your email'}), 400
 
