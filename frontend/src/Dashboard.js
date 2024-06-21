@@ -18,7 +18,7 @@ const centerTextPlugin = {
         const fontSize = (height / 250).toFixed(2);
         ctx.font = `${fontSize}em sans-serif`;
         ctx.textBaseline = 'middle';
-        const text = `Total: $${chart.options.plugins.centerText.totalSpend}`;
+        const text = `Total: $${chart.options.plugins.centerText.totalSpend.toLocaleString()}`;
         const textX = Math.round((width - ctx.measureText(text).width) / 2);
         const textY = height / 2;
         ctx.fillText(text, textX, textY);
@@ -84,7 +84,7 @@ const Dashboard = () => {
     return (
         <div className="min-h-screen flex flex-col items-start justify-start bg-gray-100 p-4">
             <div className='font-tour h-fit text-orange-500 font-bold'>My Dashboard</div>
-            <div className="bg-white p-6 w-full rounded-lg shadow-lg flex flex-row items-start mt-10 space-x-10">   
+            <div className="bg-white w-full p-6 rounded-lg shadow-lg flex flex-row items-start mt-10 space-x-10">   
                 <div className="relative">
                     <h1 className='font-mons font-bold text-2xl mb-4'>My Total Spend</h1>
                     {spendChartData.datasets ? (
@@ -105,15 +105,15 @@ const Dashboard = () => {
                     )}
                 </div>
                 <div className="ml-6 flex flex-col justify-start">
-                    <h2 className="text-xl font-semibold mt-7 ml-7">Categories</h2>
+                    <h2 className="text-xl font-semibold ml-6 mt-7">Categories</h2>
                     {spendChartData.labels && spendChartData.datasets ? (
-                        <ul className="space-y-4 m-10">
+                        <ul className="space-y-4 m-7">
                             {spendChartData.labels.map((label, index) => (
                                 <li key={index} className="flex items-center">
                                     <div className="w-3 h-3 rounded-full mr-2" style={{ backgroundColor: spendChartData.datasets[0].backgroundColor[index] }}></div>
                                     <span className="font-bold text-lg" style={{ color: spendChartData.datasets[0].backgroundColor[index] }}>
                                         {label}
-                                    </span>: <span className="text-lg">{spendChartData.datasets[0].data[index]}</span>
+                                    </span>: <span className="text-lg">${spendChartData.datasets[0].data[index].toLocaleString()}</span>
                                 </li>
                             ))}
                         </ul>
@@ -126,12 +126,12 @@ const Dashboard = () => {
                 <h1 className='font-mons font-bold text-2xl'>Monthly Budget</h1>
                 {budgetData !== null ? (
                     <div>
-                        <h2 className="text-xl font-semibold mb-4">My Total Budget: ${budgetData.total_budget}</h2>
+                        <h2 className="text-xl font-semibold mb-4">My Total Budget: ${budgetData.total_budget.toLocaleString()}</h2>
                         <ul className="space-y-4">
                             {budgetData.categories.map((category, index) => (
                                 <li key={index} className="flex flex-col">
                                     <div className="flex items-center">
-                                        <span className="font-bold text-lg">{category.name}</span>: <span className="text-lg">${category.amount}</span>
+                                        <span className="font-bold text-lg">{category.name}</span>: <span className="text-lg">${category.amount.toLocaleString()}</span>
                                     </div>
                                     <div className="relative pt-1">
                                         <div className="overflow-hidden h-2 mb-4 text-xs flex rounded bg-gray-200">
@@ -150,12 +150,12 @@ const Dashboard = () => {
                 <h1 className='font-mons font-bold text-2xl'>Monthly Balance</h1>
                 {categoryBalances.length > 0 ? (
                     <div>
-                        <h2 className="text-xl font-semibold mb-4">Total Balance: ${totalBalance}</h2>
+                        <h2 className="text-xl font-semibold mb-4">Total Balance: ${totalBalance.toLocaleString()}</h2>
                         <ul className="space-y-4">
                             {categoryBalances.map((category, index) => (
                                 <li key={index} className="flex flex-col">
                                     <div className="flex items-center">
-                                        <span className="font-bold text-lg">{category.name}</span>: <span className="text-lg">${category.balance}</span>
+                                        <span className="font-bold text-lg">{category.name}</span>: <span className="text-lg">${category.balance.toLocaleString()}</span>
                                     </div>
                                     <div className="relative pt-1">
                                         <div className="overflow-hidden h-2 mb-4 text-xs flex rounded bg-gray-200">
