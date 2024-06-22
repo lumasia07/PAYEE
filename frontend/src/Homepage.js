@@ -34,7 +34,7 @@ class Homepage extends Component {
     return (
       <div className='bg-gray-100 min-h-screen'>
         <div className='absolute top-0 left-0'>
-          <h1 className='font-mons text-4xl px-6 py-5 font-semibold text-orange-500'>Payee</h1>
+          <h1 className='font-mons text-4xl px-10 py-5 font-semibold text-orange-500'>Payee</h1>
           <div className='mt-4 px-6'>
           </div>
         </div>
@@ -48,7 +48,7 @@ class Homepage extends Component {
           {this.renderOpts()}
         </div>
         <div className='flex justify-center px-12 mx-12'>
-          <h1 className='font-raleway py-12 text-4xl font-semibold text-center px-12 mx-12'>
+          <h1 className='font-raleway py-12 text-5xl font-semibold text-center px-12 mx-12'>
             The fastest way to manage your finances & budgets with AI-powered solutions
           </h1>
         </div>
@@ -61,9 +61,9 @@ class Homepage extends Component {
           </button>
         </div>
         <div className='py-12 my-12 mx-5'>
-          <h1 className='font-raleway font-semibold flex justify-center text-3xl'>Our Products</h1>
+          <h1 className='font-raleway font-semibold flex justify-center text-4xl'>Our Products</h1>
           <div className='font-raleway flex justify-center space-x-12 py-7'>
-            <div className='w-1/4 bg-gradient-to-r from-orange-300 to-orange-500 rounded-md shadow-lg p-5'>
+            <div className='w-1/4 bg-gradient-to-r from-orange-300 to-orange-500 rounded-md shadow-lg p-5 transform transition duration-200 hover:scale-105'>
               <h1 className='font-raleway text-xl mb-2 flex justify-center font-semibold'>Home</h1>
               <p className='mb-2'>Manage your household expenses and budgets effortlessly.</p>
               <ul className='list-disc list-inside mb-4'>
@@ -77,7 +77,7 @@ class Homepage extends Component {
                 </button>
               </div>
             </div>
-            <div className='w-1/4 bg-gradient-to-r from-orange-300 to-orange-500 rounded-md shadow-lg p-5'>
+            <div className='w-1/4 bg-gradient-to-r from-orange-300 to-orange-500 rounded-md shadow-lg p-5 transform transition duration-200 hover:scale-105'>
               <h1 className='flex justify-center font-raleway text-xl mb-2 font-semibold'>Business</h1>
               <p className='mb-2'>Optimize your business finances with our advanced tools.</p>
               <ul className='list-disc list-inside mb-4'>
@@ -91,7 +91,7 @@ class Homepage extends Component {
                 </button>
               </div>
             </div>
-            <div className='w-1/4 bg-gradient-to-r from-orange-300 to-orange-500 rounded-md shadow-lg p-5'>
+            <div className='w-1/4 bg-gradient-to-r from-orange-300 to-orange-500 rounded-md shadow-lg p-5 transform transition duration-200 hover:scale-105'>
               <h1 className='flex justify-center font-raleway text-xl mb-2 font-semibold'>Institution</h1>
               <p className='mb-2'>Manage institutional finances with comprehensive oversight.</p>
               <ul className='list-disc list-inside mb-4'>
@@ -106,6 +106,14 @@ class Homepage extends Component {
               </div>
             </div>
           </div>
+        </div>
+        <div className='flex justify-center font-raleway'>
+          <h1 className='font-semibold text-4xl'>The power to manage your money</h1>
+        </div>
+        <div className='flex justify-center my-12 space-x-4'>
+          <img src='./Alisa-Dyson-family-outfits-landscape-9d5f7852b672bb59bf818761944ba9d6-zybravgx2q47.jpeg' alt='Family pic' className='rounded-lg shadow-lg w-1/4 h-64 object-cover transform transition duration-200 hover:scale-105'/>
+          <img src='./flat-lay-business-concept.jpg' alt='Business pic' className='rounded-lg shadow-lg w-1/4 h-64 object-cover transform transition duration-200 hover:scale-105'/>
+          <img src='./shallow-focus-shot-african-child-learning-school.jpg' alt='School pic' className='rounded-lg shadow-lg w-1/4 h-64 object-cover transform transition duration-200 hover:scale-105'/>
         </div>
         {showLogin && (
           <div className="absolute inset-0 bg-black bg-opacity-70 flex justify-center items-center">
