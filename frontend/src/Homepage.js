@@ -111,9 +111,27 @@ class Homepage extends Component {
           <h1 className='font-semibold text-4xl'>The power to manage your money</h1>
         </div>
         <div className='flex justify-center my-12 space-x-4'>
-          <img src='./Alisa-Dyson-family-outfits-landscape-9d5f7852b672bb59bf818761944ba9d6-zybravgx2q47.jpeg' alt='Family pic' className='rounded-lg shadow-lg w-1/4 h-64 object-cover transform transition duration-200 hover:scale-105'/>
-          <img src='./flat-lay-business-concept.jpg' alt='Business pic' className='rounded-lg shadow-lg w-1/4 h-64 object-cover transform transition duration-200 hover:scale-105'/>
-          <img src='./shallow-focus-shot-african-child-learning-school.jpg' alt='School pic' className='rounded-lg shadow-lg w-1/4 h-64 object-cover transform transition duration-200 hover:scale-105'/>
+          <div className="relative w-1/4 h-64">
+            <img src='./Alisa-Dyson-family-outfits-landscape-9d5f7852b672bb59bf818761944ba9d6-zybravgx2q47.jpeg' alt='Family pic' className='rounded-lg shadow-lg w-full h-full object-cover transform transition duration-200 hover:scale-105'/>
+            <div className="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-0 hover:opacity-75 transition duration-200 rounded-lg"></div>
+            <div className="absolute bottom-0 left-0 right-0 p-4 text-white text-center opacity-0 hover:opacity-100 transition duration-200">
+              <a href="#l" className='font-raleway font-semibold hover:underline'>Manage Family</a>
+            </div>
+          </div>
+          <div className="relative w-1/4 h-64">
+            <img src='./flat-lay-business-concept.jpg' alt='Business pic' className='rounded-lg shadow-lg w-full h-full object-cover transform transition duration-200 hover:scale-105'/>
+            <div className="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-0 hover:opacity-75 transition duration-200 rounded-lg"></div>
+            <div className="absolute bottom-0 left-0 right-0 p-4 text-white text-center opacity-0 hover:opacity-100 transition duration-200">
+              <a href="#l" className='font-raleway font-semibold hover:underline'>Streamline Business</a>
+            </div>
+          </div>
+          <div className="relative w-1/4 h-64">
+            <img src='./shallow-focus-shot-african-child-learning-school.jpg' alt='School pic' className='rounded-lg shadow-lg w-full h-full object-cover transform transition duration-200 hover:scale-105'/>
+            <div className="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-0 hover:opacity-75 transition duration-200 rounded-lg"></div>
+            <div className="absolute bottom-0 left-0 right-0 p-4 text-white text-center opacity-0 hover:opacity-100 transition duration-200">
+              <a href="#l" className='font-raleway font-semibold hover:underline'>Manage Institutions</a>
+            </div>
+          </div>
         </div>
         {showLogin && (
           <div className="absolute inset-0 bg-black bg-opacity-70 flex justify-center items-center">
