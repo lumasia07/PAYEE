@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Login from './Login';
+import Footer from './Footer'
 
 const options = ['Products', 'About', 'FAQ'];
 
@@ -133,6 +134,14 @@ class Homepage extends Component {
             </div>
           </div>
         </div>
+        <div className='flex justify-center'>
+          <h1 className='font-raleway text-4xl font-semibold'>Help us help you</h1>
+        </div>
+        <div className='py-3 w-full flex justify-center my-3'>
+          <button className='shadow-md font-raleway px-6 py-3 bg-orange-300 text-black rounded-full transition duration-200 hover:bg-gradient-to-r from-orange-300 to-orange-500'>
+            Get Started {'>'}
+          </button>
+        </div> 
         {showLogin && (
           <div className="absolute inset-0 bg-black bg-opacity-70 flex justify-center items-center">
             <div className="bg-orange-100 p-8 rounded-md shadow-lg">
@@ -146,6 +155,7 @@ class Homepage extends Component {
             </div>
           </div>
         )}
+        <Footer />
       </div>
     );
   }
