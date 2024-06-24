@@ -4,6 +4,7 @@ import Login from './Login';
 import RegisterUser from './RegisterUser';
 import Homepage from './Homepage';
 import Dashboard from './Dashboard';
+import Loading from './Loading';
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<RegisterUser />} />
         <Route path="/dashboard" element={<Dashboard />} />
+        <Route path='/loading' element={<Loading />} />
 
       </Routes>
     </BrowserRouter>

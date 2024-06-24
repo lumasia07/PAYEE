@@ -1,5 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
+  darkMode: 'class',
   content: ["./src/**/*.js"],
   theme: {
     extend: {
@@ -14,9 +15,18 @@ module.exports = {
         'custom-second-left': '0.5rem', // Slightly rounded corner for second image
         'custom-second-right': '50%',  // Fully rounded corner
       },
+      keyframes: {
+        fadeInOut: {
+          '0%, 100%': { opacity: 0 },
+          '50%': { opacity: 1 },
+        },
+      },
+      animation: {
+        fadeInOut: 'fadeInOut 5.7s ease-in-out infinite',
+      },
     },
   },
-  plugins: [
+  plugins: [ // Use a comma here instead of a semicolon
     function ({ addUtilities }) {
       addUtilities({
         '.rounded-lr-custom': {
@@ -34,4 +44,7 @@ module.exports = {
       });
     },
   ],
-}
+};
+
+
+
