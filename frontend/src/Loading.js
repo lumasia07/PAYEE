@@ -1,16 +1,16 @@
-// Loader Screen
-
 import React, { Component } from 'react';
+import { Navigate } from 'react-router-dom'; // Import Navigate from react-router-dom
 
 class Loading extends Component {
   constructor(props) {
     super(props);
     this.state = {
       loadingTextIndex: 0,
+      redirect: false // State to manage redirect
     };
     this.loadingTexts = [
       "Thank You for choosing Payee...",
-      "Preparing your dashboard...",
+      "Populating your dashboard...",
       "Fetching data...",
       "Almost there...",
       "Just a moment...",
@@ -22,7 +22,12 @@ class Loading extends Component {
       this.setState((prevState) => ({
         loadingTextIndex: (prevState.loadingTextIndex + 1) % this.loadingTexts.length,
       }));
-    }, 5900); // Change text every 3.5 seconds
+    }, 6000); // Change text every 3.5 seconds
+
+    // Simulate loading for 6 seconds (6000ms) before redirecting to dashboard
+    setTimeout(() => {
+      this.setState({ redirect: true });
+    }, 24000);
   }
 
   componentWillUnmount() {
@@ -30,7 +35,12 @@ class Loading extends Component {
   }
 
   render() {
-    const { loadingTextIndex } = this.state;
+    const { loadingTextIndex, redirect } = this.state;
+
+    if (redirect) {
+      return <Navigate to="/dashboard" />;
+    }
+
     return (
       <div className="flex justify-center items-center h-screen bg-gray-100">
         <div className="flex flex-col items-center">

@@ -33,12 +33,17 @@ class Homepage extends Component {
     const { showLogin } = this.state;
 
     return (
-      <div className="bg-gray-100 min-h-screen">
+      <div className="bg-gray-100 min-h-screen relative">
+        {/* Background overlay when login dialog is shown */}
+        {showLogin && (
+          <div className="absolute inset-0 bg-black bg-opacity-80 z-50"></div>
+        )}
+
         <div className="absolute top-0 left-0 p-4">
           <h1 className="font-mons text-3xl md:text-4xl lg:text-5xl px-4 py-2 font-semibold text-orange-500">Payee</h1>
         </div>
         <button
-          className="rounded-lg font-raleway absolute top-0 right-4 m-5 px-4 py-2 bg-orange-200 text-black border border-orange-500 hover:bg-orange-300 transition duration-200 shadow-md"
+          className="rounded-lg font-raleway absolute top-0 right-4 m-5 px-4 py-2 bg-orange-200 text-black border border-orange-500 hover:bg-orange-300 transition duration-200 shadow-md z-10"
           onClick={this.handleLoginClick}
         >
           Log in ?
@@ -96,8 +101,8 @@ class Homepage extends Component {
           </button>
         </div>
         {showLogin && (
-          <div className="absolute inset-0 bg-black bg-opacity-70 flex justify-center items-center">
-            <div className="bg-orange-100 p-8 rounded-md shadow-lg">
+          <div className="fixed inset-0 flex justify-center z-50">
+            <div className="bg-white p-8 rounded-md shadow-lg h-fit m-12">
               <Login />
               <button
                 className="mt-4 px-4 py-2 bg-red-500 text-white rounded-full font-tour"
