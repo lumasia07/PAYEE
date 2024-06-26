@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom'; // Import Link from react-router-dom
 import Login from './Login';
 import Footer from './Footer';
 
@@ -16,6 +17,7 @@ class Homepage extends Component {
     this.setState({ showLogin: true });
     console.log("User pressed login!!");
   };
+  
 
   renderOpts() {
     return (
@@ -60,9 +62,11 @@ class Homepage extends Component {
           <h2 className="text-center text-lg md:text-xl lg:text-2xl">Manage your income by the click of a button</h2>
         </div>
         <div className="py-3 w-full flex justify-center my-3">
-          <button className="shadow-md font-raleway px-6 py-3 bg-orange-300 text-black rounded-full transition duration-200 hover:bg-gradient-to-r from-orange-300 to-orange-500">
-            Try it out {'>'}
-          </button>
+          <Link to="/choseplan">
+            <button className="shadow-md font-raleway px-6 py-3 bg-orange-300 text-black rounded-full transition duration-200 hover:bg-gradient-to-r from-orange-300 to-orange-500">
+              Get Started {'>'}
+            </button>
+          </Link>
         </div>
         <div className="py-12 my-12 mx-5">
           <h1 className="font-raleway font-semibold flex justify-center text-4xl">Our Products</h1>
@@ -96,9 +100,11 @@ class Homepage extends Component {
           <h1 className="font-raleway text-4xl font-semibold">Help us help you</h1>
         </div>
         <div className="py-3 w-full flex justify-center my-3">
-          <button className="shadow-md font-raleway px-6 py-3 bg-orange-300 text-black rounded-full transition duration-200 hover:bg-gradient-to-r from-orange-300 to-orange-500">
-            Get Started {'>'}
-          </button>
+          <Link to="/choseplan">
+            <button className="shadow-md font-raleway px-6 py-3 bg-orange-300 text-black rounded-full transition duration-200 hover:bg-gradient-to-r from-orange-300 to-orange-500">
+              Get Started {'>'}
+            </button>
+          </Link>
         </div>
         {showLogin && (
           <div className="fixed inset-0 flex justify-center z-50">

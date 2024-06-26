@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const RegisterUser = () => {
   const [formData, setFormData] = useState({
@@ -9,6 +10,7 @@ const RegisterUser = () => {
     confirm_password: ''
   });
   const [message, setMessage] = useState('');
+  const navigate = useNavigate();
 
   const handleChange = (event) => {
     setFormData({ ...formData, [event.target.id]: event.target.value });
@@ -48,6 +50,8 @@ const RegisterUser = () => {
 
       if (response.ok) {
         setMessage("Your registration is successful!");
+
+        navigate("/registering_user")
 
         // Clear form after successful registration
         setFormData({
