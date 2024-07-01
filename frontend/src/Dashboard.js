@@ -1,177 +1,62 @@
-import React, { useEffect, useState } from 'react';
-import { Doughnut } from 'react-chartjs-2';
-import {
-  Chart as ChartJS,
-  ArcElement,
-  Tooltip,
-  Legend
-} from 'chart.js';
+import React, { useState, useEffect } from 'react';
 
-ChartJS.register(ArcElement, Tooltip, Legend);
+function Dashboard() {
+  const [wallets, setWallets] = useState([]);
+  const [error, setError] = useState('');
 
-// Custom plugin to display text in the center of the Doughnut chart
-const centerTextPlugin = {
-    id: 'centerText',
-    beforeDraw: (chart) => {
-        const { ctx, width, height } = chart;
-        ctx.restore();
-        const fontSize = (height / 250).toFixed(2);
-        ctx.font = `${fontSize}em sans-serif`;
-        ctx.textBaseline = 'middle';
-        const text = `Total: $${chart.options.plugins.centerText.totalSpend.toLocaleString()}`;
-        const textX = Math.round((width - ctx.measureText(text).width) / 2);
-        const textY = height / 2;
-        ctx.fillText(text, textX, textY);
-        ctx.save();
-    }
-};
-
-const Dashboard = () => {
-    const [spendChartData, setSpendChartData] = useState({});
-    const [budgetData, setBudgetData] = useState(null);
-    const [expenditureData, setExpenditureData] = useState(null);
-    const [totalSpend, setTotalSpend] = useState(0);
-    const [categoryBalances, setCategoryBalances] = useState([]);
-    const [totalBalance, setTotalBalance] = useState(0);
-
-    useEffect(() => {
-        fetch('http://127.0.0.1:5000/api/dashboard/expenditure')
-            .then(response => response.json())
-            .then(data => {
-                setExpenditureData(data);
-                setTotalSpend(data.total_spend);
-            })
-            .catch(error => console.error('Error fetching expenditure data:', error));
-
-        fetch('http://127.0.0.1:5000/api/dashboard/budget')
-            .then(response => response.json())
-            .then(data => {
-                setBudgetData(data);
-            })
-            .catch(error => console.error('Error fetching budget data:', error));
-    }, []);
-
-    useEffect(() => {
-        if (budgetData && expenditureData) {
-            const spendData = expenditureData.categories.map(cat => cat.amount);
-            const budgetAmounts = budgetData.categories.map(cat => cat.amount);
-            const backgroundColors = budgetData.categories.map((_, idx) => `hsl(${idx * 60}, 70%, 50%)`);
-
-            // Ensure no spend exceeds the corresponding budget
-            const adjustedSpendData = spendData.map((amount, idx) => Math.min(amount, budgetAmounts[idx]));
-
-            setSpendChartData({
-                labels: budgetData.categories.map(cat => cat.name),
-                datasets: [
-                    {
-                        data: adjustedSpendData,
-                        backgroundColor: backgroundColors
-                    }
-                ]
-            });
-
-            // Calculate category balances and total balance
-            const balances = budgetData.categories.map((category, idx) => ({
-                name: category.name,
-                balance: budgetAmounts[idx] - spendData[idx]
-            }));
-            setCategoryBalances(balances);
-            const totalBal = balances.reduce((acc, curr) => acc + curr.balance, 0);
-            setTotalBalance(totalBal);
+  useEffect(() => {
+    const fetchWallets = async () => {
+      try {
+        const response = await fetch('http://localhost:5000/api/my_home_wallet');
+        if (!response.ok) {
+          throw new Error('Failed to fetch wallet data');
         }
-    }, [budgetData, expenditureData]);
+        const data = await response.json();
+        setWallets(data);
+      } catch (error) {
+        setError(error.message);
+      }
+    };
 
-    return (
-        <div className="min-h-screen flex flex-col items-start justify-start bg-gray-100 p-4">
-            <div className='font-tour h-fit text-orange-500 font-bold'>My Dashboard</div>
-            <div className="bg-white w-full p-6 rounded-lg shadow-lg flex flex-row items-start mt-10 space-x-10">   
-                <div className="relative">
-                    <h1 className='font-mons font-bold text-2xl mb-4'>My Total Spend</h1>
-                    {spendChartData.datasets ? (
-                        <Doughnut 
-                            data={spendChartData} 
-                            options={{ 
-                                plugins: { 
-                                    centerText: { totalSpend },
-                                    legend: {
-                                        display: false
-                                    }
-                                }
-                            }} 
-                            plugins={[centerTextPlugin]}
-                        />
-                    ) : (
-                        <p className="text-center text-gray-500">Loading...</p>
-                    )}
-                </div>
-                <div className="ml-6 flex flex-col justify-start">
-                    <h2 className="text-xl font-semibold ml-6 mt-7">Categories</h2>
-                    {spendChartData.labels && spendChartData.datasets ? (
-                        <ul className="space-y-4 m-7">
-                            {spendChartData.labels.map((label, index) => (
-                                <li key={index} className="flex items-center">
-                                    <div className="w-3 h-3 rounded-full mr-2" style={{ backgroundColor: spendChartData.datasets[0].backgroundColor[index] }}></div>
-                                    <span className="font-bold text-lg" style={{ color: spendChartData.datasets[0].backgroundColor[index] }}>
-                                        {label}
-                                    </span>: <span className="text-lg">${spendChartData.datasets[0].data[index].toLocaleString()}</span>
-                                </li>
-                            ))}
-                        </ul>
-                    ) : (
-                        <p className="text-gray-500">No data available</p>
-                    )}
-                </div>
-            </div>
-            <div className="bg-white p-6 rounded-lg shadow-lg mt-10 w-full"> 
-                <h1 className='font-mons font-bold text-2xl'>Monthly Budget</h1>
-                {budgetData !== null ? (
-                    <div>
-                        <h2 className="text-xl font-semibold mb-4">My Total Budget: ${budgetData.total_budget.toLocaleString()}</h2>
-                        <ul className="space-y-4">
-                            {budgetData.categories.map((category, index) => (
-                                <li key={index} className="flex flex-col">
-                                    <div className="flex items-center">
-                                        <span className="font-bold text-lg">{category.name}</span>: <span className="text-lg">${category.amount.toLocaleString()}</span>
-                                    </div>
-                                    <div className="relative pt-1">
-                                        <div className="overflow-hidden h-2 mb-4 text-xs flex rounded bg-gray-200">
-                                            <div style={{ width: `${(category.amount / budgetData.total_budget) * 100}%` }} className="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-blue-500"></div>
-                                        </div>
-                                    </div>
-                                </li>
-                            ))}
-                        </ul>
-                    </div>
-                ) : (
-                    <p className="text-center text-gray-500">Loading...</p>
-                )}
-            </div>
-            <div className="bg-white p-6 rounded-lg shadow-lg mt-10 w-full"> 
-                <h1 className='font-mons font-bold text-2xl'>Monthly Balance</h1>
-                {categoryBalances.length > 0 ? (
-                    <div>
-                        <h2 className="text-xl font-semibold mb-4">Total Balance: ${totalBalance.toLocaleString()}</h2>
-                        <ul className="space-y-4">
-                            {categoryBalances.map((category, index) => (
-                                <li key={index} className="flex flex-col">
-                                    <div className="flex items-center">
-                                        <span className="font-bold text-lg">{category.name}</span>: <span className="text-lg">${category.balance.toLocaleString()}</span>
-                                    </div>
-                                    <div className="relative pt-1">
-                                        <div className="overflow-hidden h-2 mb-4 text-xs flex rounded bg-gray-200">
-                                            <div style={{ width: `${(category.balance / budgetData.total_budget) * 100}%` }} className="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-green-500"></div>
-                                        </div>
-                                    </div>
-                                </li>
-                            ))}
-                        </ul>
-                    </div>
-                ) : (
-                    <p className="text-center text-gray-500">Loading...</p>
-                )}
-            </div>
-        </div>
-    );
-};
+    fetchWallets();
+  }, []);
+
+  return (
+    <div className="container mx-auto px-4 py-8 font-raleway">
+      <h1 className="font-bold font-mons text-orange-500 text-3xl py-5">Payee Dashboard</h1>
+      {error && <p className="text-red-500">{error}</p>}
+      <table className="min-w-full bg-white">
+        <thead>
+          <tr>
+            <th className="py-2 px-4 border-b-2 border-gray-300 text-left">Wallet Name</th>
+            <th className="py-2 px-4 border-b-2 border-gray-300 text-left">Total Amount</th>
+            <th className="py-2 px-4 border-b-2 border-gray-300 text-left">Categories</th>
+          </tr>
+        </thead>
+        <tbody>
+          {wallets.map((wallet) => {
+            const totalAmount = wallet.categories.reduce((total, category) => total + category.amount, 0);
+            return (
+              <tr key={wallet.id}>
+                <td className="py-2 px-4 border-b border-gray-300">{wallet.name}</td>
+                <td className="py-2 px-4 border-b border-gray-300">${totalAmount.toFixed(2)}</td>
+                <td className="py-2 px-4 border-b border-gray-300">
+                  <ul>
+                    {wallet.categories.map((category, index) => (
+                      <li key={index} className="flex justify-between">
+                        <span>{category.name}</span>
+                        <span>${category.amount.toFixed(2)}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </td>
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
+    </div>
+  );
+}
 
 export default Dashboard;
