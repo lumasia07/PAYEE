@@ -1,3 +1,4 @@
+"""Gateway API"""
 from flask import Flask, send_from_directory
 from api.views import register_views
 from storage_engine.Database import db_storage
