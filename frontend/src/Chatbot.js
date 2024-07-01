@@ -4,8 +4,7 @@ function App() {
   const [messages, setMessages] = useState([
     {
       role: 'model',
-      content:
-        "\n How may I help you?😊 \n",
+      content: "\nHow may I help you?😊\n",
     },
   ]);
   const [input, setInput] = useState('');
@@ -31,7 +30,8 @@ function App() {
       }
 
       const data = await response.json();
-      setResponse(data.response);
+      const modelMessage = { role: 'model', content: data.response };
+      setMessages((prevMessages) => [...prevMessages, modelMessage]);
     } catch (error) {
       console.error('Error sending message:', error);
     }
@@ -41,19 +41,22 @@ function App() {
 
   return (
     <div className="font-raleway min-h-screen flex flex-col justify-center items-center bg-gray-100">
-      <h1 className='text-2xl m-3 font-mons  font-semibold text-orange-500'>Payee assistant</h1>
-      <div className="chat-box w-full max-w-lg bg-orange-200 shadow-lg rounded-lg overflow-hidden mb-4">
+      <h1 className="text-2xl m-3 font-mons font-semibold text-orange-500">Payee Assistant</h1>
+      <div className="chat-box w-full max-w-lg bg-white shadow-lg rounded-lg overflow-hidden mb-4">
         {messages.map((message, index) => (
           <div key={index} className={`message ${message.role} p-3`}>
-            {message.content}
+            <div
+              className={`p-2 rounded-md ${
+                message.role === 'user'
+                  ? 'bg-blue-500 text-white self-end'
+                  : 'bg-gray-200 text-gray-800 self-start'
+              }`}
+            >
+              {message.content}
+            </div>
           </div>
         ))}
       </div>
-      {response && (
-        <div className="response-box w-full max-w-lg bg-blue-100 border border-orange-200 text-orange-900 px-4 py-2 rounded-md mb-4 border-3">
-          {response}
-        </div>
-      )}
       <div className="input-box flex w-full max-w-lg">
         <input
           type="text"

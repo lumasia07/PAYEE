@@ -6,7 +6,7 @@ function CreatewalletHome() {
   const [categoryName, setCategoryName] = useState('');
   const [amount, setAmount] = useState('');
   const [message, setMessage] = useState('');
- 
+  const [assistantResponse, setAssistantResponse] = useState('');
 
   const handleAddCategory = (event) => {
     event.preventDefault();
@@ -49,6 +49,29 @@ function CreatewalletHome() {
     } catch (error) {
       console.error('Error creating wallet:', error);
       setMessage('Failed to create wallet');
+    }
+  };
+
+  const handleGetSuggestions = async () => {
+    const userInput = `Wallet Name: ${walletName}, Categories: ${categories.map(category => `${category.name} - $${category.amount}`).join(', ')}`;
+    
+    try {
+      const response = await fetch('http://localhost:5001/chat', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ message: userInput }),
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        setAssistantResponse(data.response);
+      } else {
+        console.error('Error getting suggestions:', response.statusText);
+      }
+    } catch (error) {
+      console.error('Error getting suggestions:', error);
     }
   };
 
@@ -107,8 +130,11 @@ function CreatewalletHome() {
         <button type="button" onClick={handleAddCategory} className="px-4 py-2 text-white bg-orange-500 rounded-md hover:bg-blue-700">
           Add Category
         </button>
-        <button type="submit" className="px-4 py-2 text-white bg-green-500 rounded-md hover:bg-green-700">
+        <button type="submit" onClick={handleSubmit} className="px-4 py-2 text-white bg-green-500 rounded-md hover:bg-green-700">
           Create Wallet
+        </button>
+        <button type="button" onClick={handleGetSuggestions} className="px-4 py-2 text-white bg-blue-500 rounded-md hover:bg-blue-700 ml-2">
+          Get Suggestions
         </button>
       </form>
       <ul className="mt-6 list-disc pl-4">
@@ -129,6 +155,11 @@ function CreatewalletHome() {
         Total: ${totalAmount.toFixed(2)}
       </div>
       {message && <p className="mt-4 text-center text-green-600">{message}</p>}
+      {assistantResponse && (
+        <div className="mt-4 bg-yellow-100 border border-yellow-400 text-yellow-700 px-4 py-3 rounded relative">
+          {assistantResponse}
+        </div>
+      )}
     </div>
   );
 }
