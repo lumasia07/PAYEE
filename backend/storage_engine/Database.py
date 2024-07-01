@@ -4,13 +4,14 @@ from dotenv import load_dotenv
 from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
 from .data_models.user import User, Base
-from .data_models.user_spend import Spend
+from .data_models.wallet import Wallet, Category
 
 load_dotenv() #Loads environment variables
 
 classes = {
     'User': User,
-    'Spend': Spend,
+    'Wallet': Wallet,
+    'Category': Category
 }
 
 class db_storage:

@@ -1,6 +1,5 @@
 from sqlalchemy import Column, Integer, String, DateTime
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import relationship
 import datetime
 
 Base = declarative_base()
@@ -15,8 +14,6 @@ class User(Base):
     email = Column(String(128), nullable=False, unique=True)
     password = Column(String(128), nullable=False)
     created_at = Column(DateTime, default=lambda: datetime.datetime.now(datetime.timezone.utc))
-
-    spends = relationship('Spend', back_populates='user', cascade='all, delete-orphan')
 
     def __init__(self, first_name, last_name, email, password):
         self.first_name = first_name
