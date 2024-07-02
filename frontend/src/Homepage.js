@@ -17,7 +17,6 @@ class Homepage extends Component {
     this.setState({ showLogin: true });
     console.log("User pressed login!!");
   };
-  
 
   renderOpts() {
     return (
@@ -60,6 +59,13 @@ class Homepage extends Component {
         </div>
         <div className="font-raleway flex justify-center items-center">
           <h2 className="text-center text-lg md:text-xl lg:text-2xl">Manage your income by the click of a button</h2>
+        </div>
+        <div className="flex justify-center py-4 my-4 mx-8">
+          <img
+            src="/Money_Manager_features_Blog_cover.webp"
+            alt="Cover"
+            className="rounded-lg shadow-lg w-full h-auto transform transition duration-200 hover:scale-105 hover:brightness-75"
+          />
         </div>
         <div className="py-3 w-full flex justify-center my-3">
           <Link to="/choseplan">
