@@ -9,6 +9,7 @@ import ChosePlan from './ChosePlan';
 import LoadingAfterReg from './LoadingAfterRegister';
 import CreatewalletHome from './CreatewalletHome';
 import Chatbot from './Chatbot';
+import About from './About';
 
 function App() {
   return (
@@ -23,6 +24,8 @@ function App() {
         <Route path='/registering_user' element={<LoadingAfterReg />} />
         <Route path='/create_home_wallet' element={<CreatewalletHome />} />
         <Route path='/chatbot' element={<Chatbot />} />
+        <Route path='/about' element={<About />} />
+
         
       </Routes>
     </BrowserRouter>
