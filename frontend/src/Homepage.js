@@ -1,9 +1,13 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom'; // Import Link from react-router-dom
+import { Link } from 'react-router-dom';
 import Login from './Login';
 import Footer from './Footer';
 
-const options = ['Products', 'About', 'FAQ'];
+const options = [
+  { name: 'Products', path: '/products' },
+  { name: 'About', path: '/about' },
+  { name: 'FAQ', path: '/faq' },
+];
 
 class Homepage extends Component {
   constructor(props) {
@@ -23,13 +27,15 @@ class Homepage extends Component {
       <ul className="flex justify-center list-none">
         {options.map((option, index) => (
           <li key={index} className="p-4">
-            <h2>{option}</h2>
+            <Link to={option.path} className="text-gray-800 hover:text-orange-500">
+              <h2>{option.name}</h2>
+            </Link>
           </li>
         ))}
       </ul>
     );
   }
-
+  
   render() {
     const { showLogin } = this.state;
 
