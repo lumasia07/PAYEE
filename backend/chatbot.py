@@ -13,7 +13,7 @@ genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
 
 # Create the model
 generation_config = {
-    "temperature": 2,
+    "temperature": 0,
     "top_p": 0.95,
     "top_k": 64,
     "max_output_tokens": 8192,
@@ -31,6 +31,7 @@ model = genai.GenerativeModel(
         "customized reports, and optimize financial strategies. "
         "Your goal is to foster financial literacy and enable users to achieve "
         "their financial goals efficiently and effectively."
+        "Generate percentages for each value read, "
     ),
 )
 
