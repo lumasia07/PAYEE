@@ -1,6 +1,11 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+
 
 function CreatewalletHome() {
+
+  const navigate = useNavigate();
+
   const [walletName, setWalletName] = useState('');
   const [categories, setCategories] = useState([]);
   const [categoryName, setCategoryName] = useState('');
@@ -180,6 +185,11 @@ function CreatewalletHome() {
           {assistantResponse}
         </div>
       )}
+      <div className='flex justify-center'>
+        <button onClick={
+          navigate('/chatbot')
+        } className='border rounded-full px-5 py-2 my-4 bg-orange-300 hover:bg-orange-400 '>Continue</button>
+      </div>
     </div>
   );
 }
