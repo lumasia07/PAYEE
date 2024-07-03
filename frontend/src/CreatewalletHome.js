@@ -7,6 +7,7 @@ function CreatewalletHome() {
   const [amount, setAmount] = useState('');
   const [message, setMessage] = useState('');
   const [assistantResponse, setAssistantResponse] = useState('');
+  const [interactionCount, setInteractionCount] = useState(0); // Track number of interactions
 
   const handleAddCategory = (event) => {
     event.preventDefault();
@@ -53,8 +54,10 @@ function CreatewalletHome() {
   };
 
   const handleGetSuggestions = async () => {
-    const userInput = `Wallet Name: ${walletName}, Categories: ${categories.map(category => `${category.name} - $${category.amount}`).join(', ')}`;
-    
+    const userInput = `Wallet Name: ${walletName}, Categories: ${categories
+      .map((category) => `${category.name} - $${category.amount}`)
+      .join(', ')}`;
+
     try {
       const response = await fetch('http://localhost:5001/chat', {
         method: 'POST',
@@ -67,6 +70,7 @@ function CreatewalletHome() {
       if (response.ok) {
         const data = await response.json();
         setAssistantResponse(data.response);
+        setInteractionCount(interactionCount + 1); // Increment interaction count
       } else {
         console.error('Error getting suggestions:', response.statusText);
       }
@@ -127,14 +131,26 @@ function CreatewalletHome() {
             className="w-full md:w-2/3 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-blue-500"
           />
         </div>
-        <button type="button" onClick={handleAddCategory} className="px-4 py-2 text-white bg-orange-500 rounded-md hover:bg-blue-700">
+        <button
+          type="button"
+          onClick={handleAddCategory}
+          className="px-4 py-2 text-white bg-orange-500 rounded-md hover:bg-blue-700"
+        >
           Add Category
         </button>
-        <button type="submit" onClick={handleSubmit} className="px-4 py-2 text-white bg-green-500 rounded-md hover:bg-green-700">
+        <button
+          type="submit"
+          onClick={handleSubmit}
+          className="px-4 py-2 text-white bg-green-500 rounded-md hover:bg-green-700"
+        >
           Create Wallet
         </button>
-        <button type="button" onClick={handleGetSuggestions} className="px-4 py-2 text-white bg-blue-500 rounded-md hover:bg-blue-700 ml-2">
-          Get Suggestions
+        <button
+          type="button"
+          onClick={handleGetSuggestions}
+          className="px-4 py-2 text-white bg-blue-500 rounded-md hover:bg-blue-700 ml-2"
+        >
+          {interactionCount === 0 ? 'Get Suggestions' : 'Next Suggestion'}
         </button>
       </form>
       <ul className="mt-6 list-disc pl-4">
@@ -151,9 +167,7 @@ function CreatewalletHome() {
           </li>
         ))}
       </ul>
-      <div className="mt-6 text-xl font-bold flex justify-center">
-        Total: ${totalAmount.toFixed(2)}
-      </div>
+      <div className="mt-6 text-xl font-bold flex justify-center">Total: ${totalAmount.toFixed(2)}</div>
       {message && <p className="mt-4 text-center text-green-600">{message}</p>}
       {assistantResponse && (
         <div className="mt-4 bg-yellow-100 border border-yellow-400 text-yellow-700 px-4 py-3 rounded relative">
