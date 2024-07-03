@@ -13,7 +13,7 @@ genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
 
 # Create the model
 generation_config = {
-    "temperature": 0,
+    "temperature": 2,
     "top_p": 0.95,
     "top_k": 64,
     "max_output_tokens": 8192,
@@ -21,7 +21,7 @@ generation_config = {
 }
 
 model = genai.GenerativeModel(
-    model_name="gemini-1.5-flash",
+    model_name="gemini-1.5-pro",
     generation_config=generation_config,
     system_instruction=(
         "As a financial advisor embedded in a cutting-edge budgeting app, "
