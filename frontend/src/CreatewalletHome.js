@@ -56,7 +56,7 @@ function CreatewalletHome() {
     const userInput = `Wallet Name: ${walletName}, Categories: ${categories.map(category => `${category.name} - $${category.amount}`).join(', ')}`;
     
     try {
-      const response = await fetch('http://localhost:5000/chat', {
+      const response = await fetch('http://localhost:5001/chat', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
