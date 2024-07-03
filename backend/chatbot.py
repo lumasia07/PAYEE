@@ -5,8 +5,8 @@ import google.generativeai as genai
 from storage_engine.Database import db_storage
 from storage_engine.data_models.wallet import Wallet, Category
 
-app = Flask(__name__)
-CORS(app)  # Enable CORS for all routes
+app_chat = Flask(__name__)
+CORS(app_chat)  # Enable CORS for all routes
 
 # Configure the API key
 genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
@@ -71,7 +71,7 @@ def create_wallet():
     except Exception as e:
         return jsonify({'error': str(e)}), 500
 
-@app.route('/api/my_home_wallet', methods=['GET'])
+@app_chat.route('/api/my_home_wallet', methods=['GET'])
 def get_home_wallet_data():
     try:
         wallets = wallet_storage.get_all(Wallet)
@@ -88,7 +88,7 @@ def get_home_wallet_data():
     except Exception as e:
         return jsonify({'error': str(e)}), 500
 
-@app.route('/chat', methods=['POST', 'OPTIONS'])
+@app_chat.route('/chat', methods=['POST', 'OPTIONS'])
 def chat():
     global chat_session  # Declare chat_session as global
 
@@ -112,4 +112,4 @@ def chat():
     return jsonify({"response": response.text})
 
 if __name__ == '__main__':
-    app.run(port=5001)
+    app_chat.run()
