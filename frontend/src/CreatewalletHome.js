@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 function CreatewalletHome() {
   const [walletName, setWalletName] = useState('');
@@ -8,6 +8,11 @@ function CreatewalletHome() {
   const [message, setMessage] = useState('');
   const [assistantResponse, setAssistantResponse] = useState('');
   const [interactionCount, setInteractionCount] = useState(0); // Track number of interactions
+  const [currentContext, setCurrentContext] = useState('');
+
+  useEffect(() => {
+    handleGetSuggestions(); // Fetch initial suggestions when component mounts
+  }, []);
 
   const handleAddCategory = (event) => {
     event.preventDefault();
@@ -64,12 +69,13 @@ function CreatewalletHome() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ message: userInput }),
+        body: JSON.stringify({ message: userInput, context: currentContext }),
       });
 
       if (response.ok) {
         const data = await response.json();
         setAssistantResponse(data.response);
+        setCurrentContext(data.context); // Update current context
         setInteractionCount(interactionCount + 1); // Increment interaction count
       } else {
         console.error('Error getting suggestions:', response.statusText);
