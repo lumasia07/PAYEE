@@ -54,7 +54,7 @@ chat_session = model.start_chat(history=history)
 # Storage engine for wallet data
 wallet_storage = db_storage()
 
-@app.route('/api/my_home_wallet', methods=['POST'])
+@app_chat.route('/api/my_home_wallet', methods=['POST'])
 def create_wallet():
     data = request.get_json()
     wallet_name = data.get('wallet_name')
