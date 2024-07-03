@@ -32,6 +32,7 @@ model = genai.GenerativeModel(
         "Your goal is to foster financial literacy and enable users to achieve "
         "their financial goals efficiently and effectively."
         "Generate percentages for each value read, "
+        "recommend trade-offs and saving tips."
     ),
 )
 
