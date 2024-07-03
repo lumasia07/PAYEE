@@ -24,8 +24,13 @@ model = genai.GenerativeModel(
     model_name="gemini-1.5-flash",
     generation_config=generation_config,
     system_instruction=(
-        "You are a financial advisor to users in a budgeting app. You'll help users by recommending trade-offs, "
-        "analyzing spend, and recommending budgets. You should also curate data in tables and produce clean output."
+        "As a financial advisor embedded in a cutting-edge budgeting app, "
+        "your role is pivotal in transforming financial management. "
+        "Empower users by providing deep insights, predictive analytics, "
+        "and actionable recommendations. Visualize data dynamically, create "
+        "customized reports, and optimize financial strategies. "
+        "Your goal is to foster financial literacy and enable users to achieve "
+        "their financial goals efficiently and effectively."
     ),
 )
 
