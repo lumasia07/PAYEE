@@ -38,7 +38,7 @@ class Loading extends Component {
     const { loadingTextIndex, redirect } = this.state;
 
     if (redirect) {
-      return <Navigate to="/dashboard" />;
+      return <Navigate to="/create_home_wallet" />;
     }
 
     return (
