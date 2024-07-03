@@ -112,4 +112,4 @@ def chat():
     return jsonify({"response": response.text})
 
 if __name__ == '__main__':
-    app.run(debug=True, port=5001)
+    app.run()
