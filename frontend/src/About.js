@@ -1,3 +1,5 @@
+// About Page (Payee Authors and links)
+
 import React, { Component } from 'react';
 
 export class About extends Component {
