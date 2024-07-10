@@ -1,3 +1,4 @@
+// Frontend for Chabot
 import React, { useState } from 'react';
 
 function App() {
@@ -8,8 +9,7 @@ function App() {
     },
   ]);
   const [input, setInput] = useState('');
-  const [response, setResponse] = useState('');
-
+  
   const sendMessage = async () => {
     if (input.trim() === '') return;
 
