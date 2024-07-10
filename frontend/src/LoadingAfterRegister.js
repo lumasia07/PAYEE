@@ -1,3 +1,5 @@
+// Loading after registration
+
 import React, { Component } from 'react';
 import { Navigate } from 'react-router-dom'; // Import Navigate from react-router-dom
 
