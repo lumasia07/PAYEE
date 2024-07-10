@@ -1,3 +1,5 @@
+// User function to create and post wallet
+
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
