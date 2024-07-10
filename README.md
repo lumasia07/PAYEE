@@ -102,7 +102,8 @@ The Youtube link below showcases how Payee works
 
 ## Screenshots
 
-![App Screenshot](https://via.placeholder.com/468x300?Screenshot from 2024-07-10 21-40-47.png)
+![App Screenshot](https://imgur.com/JSos19P)
+
 
 
 ## License
