@@ -1,6 +1,8 @@
 
 # Payee
 
+![App Screenshot](https://i.ibb.co/wzqbNbv/Screenshot-from-2024-07-08-16-02-36.png)
+
 An AI-powered platform to manage your finances.
 
 - [payeeapp.vercel.app](https://payeeapp.vercel.app)
@@ -95,7 +97,7 @@ The Youtube link below showcases how Payee works
 
 **Client:** React, TailwindCSS
 
-**Server:** Flask, WSGI
+**Server:** Flask, WSGI. Nginx, Gunicorn
 
 **Database:** MySQL
 
