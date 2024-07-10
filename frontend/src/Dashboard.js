@@ -1,3 +1,5 @@
+// Customer dashboard
+
 import React, { useState, useEffect } from 'react';
 
 function Dashboard() {
