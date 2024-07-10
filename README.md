@@ -9,7 +9,7 @@ An AI-powered platform to manage your finances.
 
 - [Payee blog](https://lumasiastancelaus.medium.com/payee-6b021ed05178)
 
-- [My linkedin](www.linkedin.com/in/lumasia-stancelaus)
+- [My linkedin](https://www.linkedin.com/in/lumasia-stancelaus/)
 
 ## Authors
 
