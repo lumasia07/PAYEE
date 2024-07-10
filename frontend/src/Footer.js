@@ -1,3 +1,5 @@
+// Footer for Homepage
+
 import React from 'react';
 
 const Footer = () => {
