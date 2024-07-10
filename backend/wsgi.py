@@ -1,3 +1,4 @@
+"""Main enrty point for WSGI server"""
 from app import app
 from chatbot import app_chat
 
