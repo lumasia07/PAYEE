@@ -102,7 +102,7 @@ The Youtube link below showcases how Payee works
 
 ## Screenshots
 
-![App Screenshot](https://imgur.com/JSos19P)
+![App Screenshot](https://imgur.com/oxXi70k)
 
 
 
