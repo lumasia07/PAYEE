@@ -1,3 +1,4 @@
+"""User spend Data model"""
 from sqlalchemy import Column, Integer, Float, String, DateTime, ForeignKey
 from sqlalchemy.orm import relationship
 from .user import Base
