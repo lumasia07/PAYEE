@@ -1,3 +1,5 @@
+// Root layout for create-react-app
+
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import reportWebVitals from './reportWebVitals';
