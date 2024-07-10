@@ -1,3 +1,4 @@
+"""User wallet data model"""
 from sqlalchemy import Column, DateTime, Integer, String, Float, ForeignKey
 from .user import Base
 from sqlalchemy.orm import relationship
