@@ -1,3 +1,4 @@
+"""CRUD operations on wallets"""
 from flask import Blueprint, jsonify, request
 from storage_engine.Database import db_storage
 from storage_engine.data_models.wallet import Wallet, Category
